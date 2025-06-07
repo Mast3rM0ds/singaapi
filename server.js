@@ -7,22 +7,23 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-let storedData = [];
+let storedData = []; // Array to store received data
 
+// API Endpoint to receive and store data
 app.post('/api', (req, res) => {
     const data = req.body;
-    console.log("reciverment:", data);
+    console.log("Received JSON:", data);
 
-    storedData.push(data);
+    storedData.push(data); // Save incoming data
 
     res.json({
         status: "success",
-        message: "stored!",
+        message: "Data stored!",
         allData: storedData
     });
 });
 
-// get thing
+// Optional: GET endpoint to fetch all stored data without posting anything
 app.get('/api', (req, res) => {
     res.json({
         status: "success",
@@ -30,7 +31,5 @@ app.get('/api', (req, res) => {
     });
 });
 
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`runing http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
